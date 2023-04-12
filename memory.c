@@ -37,38 +37,38 @@ struct MEMORY_BLOCK split_block_in_map(int request_size,int fit_index, struct ME
 
 struct MEMORY_BLOCK best_fit_allocate(int request_size, struct MEMORY_BLOCK memory_map[MAPMAX],int *map_cnt, int process_id) {
     // find what segment fit that block
-    int fit_index = 0;
-    int fit_size = 0;
-    for (int i=0; i<*map_cnt; i++) {
-        if (is_null_block(memory_map[i])) {
-            continue;
-        }
+    // int fit_index = 0;
+    // int fit_size = 0;
+    // for (int i=0; i<*map_cnt; i++) {
+    //     if (is_null_block(memory_map[i])) {
+    //         continue;
+    //     }
 
-        if (memory_map[i].process_id !=0) {
-            continue;
-        }
+    //     if (memory_map[i].process_id !=0) {
+    //         continue;
+    //     }
 
-        if (memory_map[i].segment_size < request_size) {
-            continue;
-        } 
+    //     if (memory_map[i].segment_size < request_size) {
+    //         continue;
+    //     } 
 
-        if (memory_map[i].segment_size > request_size && (memory_map[i].segment_size < fit_size || fit_size ==0)) {
-            fit_index = i;
-            fit_size = memory_map[i].segment_size;
-        }
+    //     if (memory_map[i].segment_size > request_size && (memory_map[i].segment_size < fit_size || fit_size ==0)) {
+    //         fit_index = i;
+    //         fit_size = memory_map[i].segment_size;
+    //     }
 
-    }
+    // }
 
-    // If the free block found is exactly of the same size as the requested size, the method updates the process id to allocate it and returns this memory block.
-    if (fit_size == request_size) {
-        memory_map[fit_index].process_id = process_id;
-        return memory_map[fit_index];
-    }
+    // // If the free block found is exactly of the same size as the requested size, the method updates the process id to allocate it and returns this memory block.
+    // if (fit_size == request_size) {
+    //     memory_map[fit_index].process_id = process_id;
+    //     return memory_map[fit_index];
+    // }
 
-    // If the free block found is larger than the requested size, the block is split into two pieces - the first piece allocated and the second piece becoming a free block in the memory map. Thus, the method may alter the memory map appropriately.
-    if (fit_size > request_size) {
-        return split_block_in_map(request_size, fit_index, memory_map, map_cnt, process_id);
-    }
+    // // If the free block found is larger than the requested size, the block is split into two pieces - the first piece allocated and the second piece becoming a free block in the memory map. Thus, the method may alter the memory map appropriately.
+    // if (fit_size > request_size) {
+    //     return split_block_in_map(request_size, fit_index, memory_map, map_cnt, process_id);
+    // }
     
     // Note that if there is no free block of memory(in the memory map) that is at least as large as the requested size, the method returns the NULLBLOCK.
     return NULLBLOCK;
