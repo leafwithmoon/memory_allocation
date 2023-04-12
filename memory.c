@@ -215,26 +215,30 @@ void release_memory(struct MEMORY_BLOCK freed_block, struct MEMORY_BLOCK memory_
     if (fit_index+1 < *map_cnt && memory_map[fit_index+1].process_id == 0) {
         memory_map[fit_index].end_address = memory_map[fit_index+1].end_address;
         memory_map[fit_index].segment_size += memory_map[fit_index+1].segment_size;
-    }
 
-    for (int i=fit_index+1;i+1<*map_cnt;i++) {
+        for (int i=fit_index+1;i+1<*map_cnt;i++) {
         memory_map[i] = memory_map[i+1];
+        }
+
+        (*map_cnt)--;
     }
 
-    (*map_cnt)--;
+    
 
 
     // merge target block and prev
     if (fit_index > 0 && memory_map[fit_index-1].process_id == 0) {
         memory_map[fit_index-1].end_address = memory_map[fit_index].end_address;
         memory_map[fit_index-1].segment_size += memory_map[fit_index].segment_size;
-    }
-
-    for (int i=fit_index;i+1<*map_cnt;i++) {
+    
+        for (int i=fit_index;i+1<*map_cnt;i++) {
         memory_map[i] = memory_map[i+1];
+        }
+
+        (*map_cnt)--;
+
     }
 
-    (*map_cnt)--;
-
+    
 
 };  
