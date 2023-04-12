@@ -36,10 +36,10 @@ struct MEMORY_BLOCK split_block_in_map(int request_size,int fit_index, struct ME
 };
 
 struct MEMORY_BLOCK best_fit_allocate(int request_size, struct MEMORY_BLOCK memory_map[MAPMAX],int *map_cnt, int process_id) {
-    // hack
-    if (*map_cnt == 4) {
-        return NULLBLOCK;
-    };
+    // // hack
+    // if (*map_cnt == 4) {
+    //     return NULLBLOCK;
+    // };
 
 
     // find what segment fit that block
@@ -58,12 +58,16 @@ struct MEMORY_BLOCK best_fit_allocate(int request_size, struct MEMORY_BLOCK memo
             continue;
         } 
 
-        if (memory_map[i].segment_size > request_size && (memory_map[i].segment_size < fit_size || fit_size ==0)) {
+        if (memory_map[i].segment_size >= request_size && (memory_map[i].segment_size < fit_size || fit_size ==0)) {
             fit_index = i;
             fit_size = memory_map[i].segment_size;
         }
 
     }
+
+    printf("1111111 \n");
+    printf("%d %d \n", fit_index, fit_size);
+
 
     // If the free block found is exactly of the same size as the requested size, the method updates the process id to allocate it and returns this memory block.
     if (fit_size == request_size) {
@@ -101,7 +105,7 @@ struct MEMORY_BLOCK first_fit_allocate(int request_size, struct MEMORY_BLOCK mem
             continue;
         } 
 
-        if (memory_map[i].segment_size > request_size && (memory_map[i].start_address < fit_start_address || fit_start_address ==0)) {
+        if (memory_map[i].segment_size >= request_size && (memory_map[i].start_address < fit_start_address || fit_start_address ==0)) {
             fit_index = i;
             fit_start_address = memory_map[i].start_address;
         }
@@ -142,7 +146,7 @@ struct MEMORY_BLOCK worst_fit_allocate(int request_size, struct MEMORY_BLOCK mem
             continue;
         } 
 
-        if (memory_map[i].segment_size > request_size && (memory_map[i].segment_size > fit_size || fit_size ==0)) {
+        if (memory_map[i].segment_size >= request_size && (memory_map[i].segment_size > fit_size || fit_size ==0)) {
             fit_index = i;
             fit_size = memory_map[i].segment_size;
         }
@@ -181,7 +185,7 @@ struct MEMORY_BLOCK next_fit_allocate(int request_size, struct MEMORY_BLOCK memo
             continue;
         } 
 
-        if (memory_map[i].segment_size > request_size && (memory_map[i].start_address > last_address)) {
+        if (memory_map[i].segment_size >= request_size && (memory_map[i].start_address > last_address)) {
             fit_index = i;
             break;
         }
