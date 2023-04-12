@@ -65,9 +65,6 @@ struct MEMORY_BLOCK best_fit_allocate(int request_size, struct MEMORY_BLOCK memo
 
     }
 
-    printf("1111111 \n");
-    printf("%d %d \n", fit_index, fit_size);
-
 
     // If the free block found is exactly of the same size as the requested size, the method updates the process id to allocate it and returns this memory block.
     if (fit_size == request_size) {
