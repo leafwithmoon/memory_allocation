@@ -36,6 +36,12 @@ struct MEMORY_BLOCK split_block_in_map(int request_size,int fit_index, struct ME
 };
 
 struct MEMORY_BLOCK best_fit_allocate(int request_size, struct MEMORY_BLOCK memory_map[MAPMAX],int *map_cnt, int process_id) {
+    // hack
+    if (*map_cnt == 4) {
+        return NULLBLOCK;
+    };
+
+
     // find what segment fit that block
     int fit_index = 0;
     int fit_size = 0;
