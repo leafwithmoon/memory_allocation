@@ -80,11 +80,6 @@ struct MEMORY_BLOCK best_fit_allocate(int request_size, struct MEMORY_BLOCK memo
 
 
 struct MEMORY_BLOCK first_fit_allocate(int request_size, struct MEMORY_BLOCK memory_map[MAPMAX],int *map_cnt, int process_id) {
-    // hack
-    if (*map_cnt >= 4) {
-        return NULLBLOCK;
-    }
-    
     // find what segment fit that block
     int fit_index = 0;
     int fit_start_address = 0;
@@ -104,6 +99,7 @@ struct MEMORY_BLOCK first_fit_allocate(int request_size, struct MEMORY_BLOCK mem
         if (memory_map[i].segment_size >= request_size && (memory_map[i].start_address < fit_start_address || fit_start_address ==0)) {
             fit_index = i;
             fit_start_address = memory_map[i].start_address;
+            break;
         }
 
     }

@@ -38,7 +38,7 @@ int main( int argc, char* argv[])
     int process_id = 40;
 
 
-    print_block(best_fit_allocate(request_size, memory_map, &map_cnt, process_id));
+    print_block(first_fit_allocate(request_size, memory_map, &map_cnt, process_id));
     
     print_map(memory_map, &map_cnt);
 
